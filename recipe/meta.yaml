@@ -8,23 +8,23 @@ package:
   version: {{ version }}
 
 source:
-  url: https://pypi.io/packages/source/{{ name[0] }}/{{ name }}/jupyterlab_wipp-{{ version }}.tar.gz
+  url: https://pypi.org/packages/source/{{ name[0] }}/{{ name }}/jupyterlab_wipp-{{ version }}.tar.gz
   sha256: 2059f8bfe30b9302246d1c980f3d25148008c76c1e225a75a971495065834509
 
 build:
-  number: 0
+  number: 1
   noarch: python
   script: {{ PYTHON }} -m pip install . --no-deps --install-option="--skip-npm" -vv
 
 requirements:
   host:
     - pip
-    - python >=3.6,<4.0
+    - python {{ python_min }}
     - jupyterlab =3
     - jupyter-packaging
   run:
     - jupyterlab =3
-    - python >=3.6,<4.0
+    - python >={{ python_min }},<4.0
     - jupyter_server >=1.6,<2
 
 test:
@@ -39,6 +39,7 @@ test:
   requires:
     - pip
     - m2-grep  # [win]
+    - python {{ python_min }}
 
 about:
   home: https://github.com/LabShare/jupyterlab-extensions/tree/master/jupyterlab_wipp
